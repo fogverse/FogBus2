@@ -3,20 +3,20 @@ import logging
 import threading
 from typing import List
 
-from utils import BasicComponent
-from utils import ComponentRole
-from utils import ConfigTaskExecutor
-from utils import ContainerManager
-from utils import MessageSubType
-from utils import MessageType
-from utils import PeriodicTaskRunner
-from utils import PeriodicTasks
-from utils import terminate
-from utils.taskExecutor import BaseTask
-from utils.taskExecutor import initTask
-from utils.taskExecutor import RegistrationManager
-from utils.taskExecutor import ResourcesProfiler
-from utils.taskExecutor import TaskExecutorMessageHandler
+from fogbus2_utils import BasicComponent
+from fogbus2_utils import ComponentRole
+from fogbus2_utils import ConfigTaskExecutor
+from fogbus2_utils import ContainerManager
+from fogbus2_utils import MessageSubType
+from fogbus2_utils import MessageType
+from fogbus2_utils import PeriodicTaskRunner
+from fogbus2_utils import PeriodicTasks
+from fogbus2_utils import terminate
+from fogbus2_utils.taskExecutor import BaseTask
+from fogbus2_utils.taskExecutor import initTask
+from fogbus2_utils.taskExecutor import RegistrationManager
+from fogbus2_utils.taskExecutor import ResourcesProfiler
+from fogbus2_utils.taskExecutor import TaskExecutorMessageHandler
 
 
 class TaskExecutor:
