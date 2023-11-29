@@ -1,9 +1,12 @@
 from .base import BaseTask
 
+import cv2
 import os
 import torch
 
-cnt = 1
+import numpy as np
+
+from io import BytesIO
 
 class CCTVInference(BaseTask):
     def __init__(self):
@@ -14,17 +17,28 @@ class CCTVInference(BaseTask):
         self.model = torch.hub.load('yolov7', 'custom',
                                     'yolo7crowdhuman.pt', source='local')
 
+    def __decompress_img(self, bbytes):
+        f = BytesIO(bbytes)
+        img_arr = np.load(f, allow_pickle=True)
+        return cv2.imdecode(img_arr, cv2.IMREAD_COLOR)
+
+    def __compress_img(self, img):
+        _, encoded = cv2.imencode(f'.jpg', img, (cv2.IMWRITE_JPEG_QUALITY, 95))
+        f = BytesIO()
+        np.save(f, encoded)
+        return f.getvalue()
+
     def exec(self, data):
-        global cnt
-        print('='*40, flush=True)
-        print('New data', flush=True)
-        frame, _time, isLastFrame = data
+        frame, frame_idx, _time, isLastFrame = data
         if isLastFrame:
-            return None
+            return data
+        frame = self.__decompress_img(frame)
+
         result = self.model(frame)
-        result.print()
+        if frame_idx % 500 == 0:
+            result.print()
+            print(frame_idx)
         result.render()
-        print(cnt)
-        print('='*40, flush=True)
-        cnt += 1
-        return (frame, _time, isLastFrame)
+
+        frame = self.__compress_img(frame)
+        return (frame, frame_idx, _time, isLastFrame)

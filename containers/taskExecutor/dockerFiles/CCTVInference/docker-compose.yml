@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+
+  fogbus2-fogverse-cctvinference:
+    image: ariqbasyar/fogbus2-fogverse:CCTVInference
+    build:
+      context: ../../
+      dockerfile: dockerFiles/CCTVInference/Dockerfile
+      args:
+        DREG: $DREG
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: Asia/Jakarta
+    network_mode:
+      host
