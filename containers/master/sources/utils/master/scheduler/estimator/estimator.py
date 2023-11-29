@@ -44,14 +44,14 @@ class Estimator:
         """
         availableActors = {}
         for taskName in self.taskList:
-            imageName = 'fogbus2-%s:latest' % camelToSnake(taskName)
+            imageName = 'fogbus2-fogverse:%s' % taskName
             availableActors[taskName] = []
             if not self.isContainerMode:
                 availableActors[taskName] = allActors
                 continue
             for actor in allActors:
                 if imageName not in actor.actorResources.images:
-                    if 'cloudslab/'+ imageName not in \
+                    if 'ariqbasyar/'+ imageName not in \
                             actor.actorResources.images:
                         continue
                 availableActors[taskName].append(actor)
