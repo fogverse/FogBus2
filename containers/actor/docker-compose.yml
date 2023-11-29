@@ -2,9 +2,8 @@ version: '3'
 
 services:
 
-  fogbus2-actor:
-    # image: fogbus2-actor
-    image: cloudslab/fogbus2-actor
+  fogbus2-fogverse-actor:
+    image: ariqbasyar/fogbus2-fogverse:actor
     build:
       context: ./
       dockerfile: ./Dockerfile
@@ -13,9 +12,8 @@ services:
     environment:
       PUID: 1000
       PGID: 1000
-      TZ: Australia/Melbourne
+      TZ: Asia/Jakarta
       PYTHONUNBUFFERED: 0
     network_mode:
       host
     restart: unless-stopped
-

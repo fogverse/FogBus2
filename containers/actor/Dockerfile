@@ -20,15 +20,15 @@ RUN python -m pip install --retries 100 --default-timeout=600  \
     --no-cache-dir \
     -r /install/requirements.txt
 
-# Copy files
-FROM base
-COPY --from=builder /install /usr/local
-COPY ./sources/ /workplace
-
 RUN apk add --no-cache iperf3
 
 # Hostname
 RUN echo "Actor" > /etc/hostname
+
+# Copy files
+FROM base
+COPY --from=builder /install /usr/local
+COPY ./sources/ /workplace
 
 # Run Actor
 WORKDIR /workplace

@@ -65,7 +65,7 @@ class TaskExecutorInitiator(BaseInitiator):
             time())
         containerName = filterIllegalCharacter(string=containerName)
         args += ' --containerName %s' % containerName
-        imageName = 'fogbus2-%s' % camelToSnake(baseTaskName)
+        imageName = 'ariqbasyar/fogbus2-fogverse:%s' % baseTaskName
         self.initTaskExecutorInContainer(
             imageName=imageName, containerName=containerName, args=args)
 
