@@ -2,9 +2,8 @@ version: '3'
 
 services:
 
-  fogbus2-remote_logger:
-    # image: fogbus2-remote_logger # Use this for local image
-    image: cloudslab/fogbus2-remote_logger
+  fogbus2-fogverse-remote_logger:
+    image: ariqbasyar/fogbus2-fogverse:remote-logger
     build:
       context: ./
       dockerfile: ./Dockerfile
@@ -14,7 +13,7 @@ services:
     environment:
       PUID: 1000
       PGID: 1000
-      TZ: Australia/Melbourne
+      TZ: Asia/Jakarta
     network_mode:
       host
     restart: unless-stopped
