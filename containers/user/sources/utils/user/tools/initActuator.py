@@ -10,6 +10,7 @@ from ..applications import GameOfLifeSerialized
 from ..applications import NaiveFormulaParallelized
 from ..applications import NaiveFormulaSerialized
 from ..applications import VideoOCR
+from ..applications import SmartCCTV
 from ...component.basic import BasicComponent
 
 
@@ -74,6 +75,12 @@ def initActuator(
             basicComponent=basicComponent)
     elif appName == 'NaiveFormulaParallelized':
         actuator = NaiveFormulaParallelized(
+            videoPath=videoPath,
+            targetHeight=int(label),
+            showWindow=showWindow,
+            basicComponent=basicComponent)
+    elif appName == 'SmartCCTV':
+        actuator = SmartCCTV(
             videoPath=videoPath,
             targetHeight=int(label),
             showWindow=showWindow,

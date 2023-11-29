@@ -29,7 +29,8 @@ class ApplicationUserSide:
             'FaceDetection',
             'FaceAndEyeDetection',
             'ColorTracking',
-            'VideoOCR'}:
+            'VideoOCR',
+            'SmartCCTV'}:
             self.sensor = cv2.VideoCapture(0) if videoPath is None \
                 else cv2.VideoCapture(videoPath)
         else:
