@@ -1,7 +1,6 @@
 version: '3'
 
 services:
-
   fogbus2-fogverse-user:
     image: ariqbasyar/fogbus2-fogverse:user
     build:
@@ -12,6 +11,7 @@ services:
       - ./images:/workplace/fogbus2-app/images
       - ./result:/workplace/fogbus2-app/result
       - /var/run/docker.sock:/var/run/docker.sock
+    working_dir: /workplace/fogbus2-app
     environment:
       PUID: 1000
       PGID: 1000

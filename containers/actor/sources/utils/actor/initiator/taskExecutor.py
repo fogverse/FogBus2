@@ -41,7 +41,8 @@ class TaskExecutorInitiator(BaseInitiator):
         master = self.basicComponent.master
         remoteLogger = self.basicComponent.remoteLogger
         childTaskTokens = self.serialize(childTaskTokens)
-        args = ' --bindIP %s' % actor.addr[0] + \
+        args = ' taskExecutor.py' + \
+               ' --bindIP %s' % actor.addr[0] + \
                ' --masterIP %s' % master.addr[0] + \
                ' --masterPort %d' % master.addr[1] + \
                ' --remoteLoggerIP %s' % remoteLogger.addr[0] + \
@@ -71,7 +72,7 @@ class TaskExecutorInitiator(BaseInitiator):
 
     def initTaskExecutorOnHost(self, args: str):
         system('cd ../../taskExecutor/sources/ &&'
-               ' python taskExecutor.py %s &' % args)
+               ' python %s &' % args)
         self.basicComponent.debugLogger.debug(
             'Init TaskExecutor on host:\n %s', args)
 
@@ -84,7 +85,7 @@ class TaskExecutorInitiator(BaseInitiator):
                 auto_remove=True,
                 image=imageName,
                 network_mode='host',
-                working_dir='/workplace',
+                working_dir='/workplace/fogbus2-app',
                 volumes={
                     '/var/run/docker.sock':
                         {

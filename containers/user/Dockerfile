@@ -1,4 +1,5 @@
-FROM ariqbasyar/fogverse:input
+ARG DREG
+FROM ${DREG}ariqbasyar/fogbus2-fogverse:user-0
 
 WORKDIR /workplace/fogbus2-app
 COPY ./sources/requirementsDockerImage.txt .
@@ -8,6 +9,3 @@ RUN pip install -r requirementsDockerImage.txt
 RUN echo "User" > /etc/hostname
 
 COPY ./sources/ .
-
-# Run User
-ENTRYPOINT ["python", "-u", "user.py"]
