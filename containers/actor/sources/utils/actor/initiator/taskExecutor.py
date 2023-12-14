@@ -5,6 +5,7 @@ from typing import Tuple
 
 from docker.client import DockerClient
 from docker.errors import APIError
+from docker.types import DeviceRequest
 
 from .base import BaseInitiator
 from ...component.basic import BasicComponent
@@ -86,6 +87,8 @@ class TaskExecutorInitiator(BaseInitiator):
                 image=imageName,
                 network_mode='host',
                 working_dir='/workplace/fogbus2-app',
+                device_requests=[DeviceRequest(device_ids=['0'],
+                                               capabilities=[['gpu']])],
                 volumes={
                     '/var/run/docker.sock':
                         {
