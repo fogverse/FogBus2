@@ -43,7 +43,8 @@ class SmartCCTV(ApplicationUserSide):
         np.save(f, encoded)
         return f.getvalue()
 
-    def __get_frame(self):
+    def __produce_frame(self):
+        self.basicComponent.debugLogger.info(f"[*] Starts producing at {time()}")
         global frame_idx
         try:
             while True:
@@ -66,20 +67,20 @@ class SmartCCTV(ApplicationUserSide):
         except Exception as e:
             traceback.print_exc()
         finally:
-            print('Done get frames')
+            self.basicComponent.debugLogger.info(f"[*] Done producing at {time()}")
+
 
     def _run(self):
         global cnt
-        self.basicComponent.debugLogger.info(f"[*] Start at {time()}")
         self.basicComponent.debugLogger.info("[*] Sending frames ...")
-        Thread(target=self.__get_frame).run()
-
+        t_frame_producer = Thread(target=self.__produce_frame)
+        t_frame_producer.start()
+        self.basicComponent.debugLogger.info(f"[*] Listening to results at {time()}")
         videoOutput = cv2.VideoWriter(
-            f'result/{self.videoPath.stem}-result{self.videoPath.suffix}',
+            f'results/{self.videoPath.stem}-result{self.videoPath.suffix}',
             cv2.VideoWriter_fourcc(*'mp4v'), 25, (1920,1080))
 
         isLastFrame = False
-        print('Listen to results:')
         while not isLastFrame:
             resultFrame, frame_idx, frameTime, isLastFrame = \
                 self.resultForActuator.get()
@@ -98,6 +99,9 @@ class SmartCCTV(ApplicationUserSide):
             self.responseTimeCount += 1
             videoOutput.write(resultFrame)
             cnt += 1
+
+        self.basicComponent.debugLogger.info(f"[*] Done listening to results at {time()}")
+
         videoOutput.release()
         self.sensor.release()
-        self.basicComponent.debugLogger.info(f"[*] End at {time()}")
+        self.basicComponent.debugLogger.info("[*] The main program has finished.")
