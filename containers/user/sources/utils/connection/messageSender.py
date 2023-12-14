@@ -114,10 +114,16 @@ class MessageSender(Component, DebugLogPrinter):
                 if not ignoreSocketError:
                     printExc()
                 if showFailure:
+                    redactedMessage = {}
+                    for i,j in messageInDict.items():
+                        if i == 'data':
+                            redactedMessage[i] = 'redactedMessage'
+                        else:
+                            redactedMessage[i] = j
                     self.debugLogger.debug(
                         'Failed to send message: %s \n %s',
                         messageToSend.destination.nameLogPrinting,
-                        pformat(messageInDict))
+                        pformat(redactedMessage))
                 sleep(1)
                 self.messagesToSendQueue.put(
                     (messageToSend, ignoreSocketError, showFailure))
