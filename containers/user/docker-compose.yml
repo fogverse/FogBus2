@@ -7,9 +7,8 @@ services:
       context: ./
       dockerfile: ./Dockerfile
     volumes:
-      - ./video:/workplace/fogbus2-app/video
-      - ./images:/workplace/fogbus2-app/images
-      - ./result:/workplace/fogbus2-app/result
+      - ./videos:/workplace/fogbus2-app/videos
+      - ./results:/workplace/fogbus2-app/results
       - /var/run/docker.sock:/var/run/docker.sock
     working_dir: /workplace/fogbus2-app
     environment:
