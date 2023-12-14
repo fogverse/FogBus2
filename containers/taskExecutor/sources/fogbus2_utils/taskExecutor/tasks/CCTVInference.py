@@ -15,7 +15,7 @@ class CCTVInference(BaseTask):
         # https://github.com/WongKinYiu/yolov7 from commit
         # 84932d70fb9e2932d0a70e4a1f02a1d6dd1dd6ca
         self.model = torch.hub.load('yolov7', 'custom',
-                                    'yolo7crowdhuman.pt', source='local')
+                                    'yolo7tinycrowdhuman.pt', source='local')
 
     def __decompress_img(self, bbytes):
         f = BytesIO(bbytes)
